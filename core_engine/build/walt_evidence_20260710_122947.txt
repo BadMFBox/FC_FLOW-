@@ -1,0 +1,220 @@
+=== CPU Topology ===
+Architecture:                         aarch64
+CPU op-mode(s):                       32-bit, 64-bit
+Byte Order:                           Little Endian
+CPU(s):                               8
+On-line CPU(s) list:                  0-7
+Vendor ID:                            ARM
+Model name:                           Cortex-A73
+Model:                                0
+Thread(s) per core:                   1
+Core(s) per socket:                   4
+Socket(s):                            1
+Stepping:                             r1p0
+CPU(s) scaling MHz:                   100%
+CPU max MHz:                          2803.2000
+CPU min MHz:                          300.0000
+BogoMIPS:                             38.40
+Flags:                                fp asimd evtstrm aes pmull sha1 sha2 crc32 cpuid
+Model name:                           Kryo-V2
+Model:                                4
+Thread(s) per core:                   1
+Core(s) per socket:                   4
+Socket(s):                            1
+Stepping:                             0xa
+CPU(s) scaling MHz:                   80%
+CPU max MHz:                          1900.8000
+CPU min MHz:                          300.0000
+BogoMIPS:                             38.40
+Flags:                                fp asimd evtstrm aes pmull sha1 sha2 crc32 cpuid
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          Not affected
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Not affected
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Not affected
+Vulnerability Spec rstack overflow:   Not affected
+Vulnerability Spec store bypass:      Vulnerable
+Vulnerability Spectre v1:             Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Not affected
+
+=== Governor States ===
+CPU 0:
+300000 691200 940800 1190400 1516800 1804800 1900800 
+userspace ondemand walt conservative powersave performance schedutil 
+
+1516800
+qcom-cpufreq-hw
+walt
+1900800
+1516800
+<unsupported>
+
+CPU 1:
+300000 691200 940800 1190400 1516800 1804800 1900800 
+userspace ondemand walt conservative powersave performance schedutil 
+
+1516800
+qcom-cpufreq-hw
+walt
+1900800
+1516800
+<unsupported>
+
+CPU 2:
+300000 691200 940800 1190400 1516800 1804800 1900800 
+userspace ondemand walt conservative powersave performance schedutil 
+
+1516800
+qcom-cpufreq-hw
+walt
+1900800
+1516800
+<unsupported>
+
+CPU 3:
+300000 691200 940800 1190400 1516800 1804800 1900800 
+userspace ondemand walt conservative powersave performance schedutil 
+
+1516800
+qcom-cpufreq-hw
+walt
+1900800
+1516800
+<unsupported>
+
+CPU 4:
+300000 806400 1056000 1344000 1766400 2208000 2400000 2592000 2803200 
+userspace ondemand walt conservative powersave performance schedutil 
+
+2803200
+qcom-cpufreq-hw
+walt
+2803200
+1766400
+<unsupported>
+
+CPU 5:
+300000 806400 1056000 1344000 1766400 2208000 2400000 2592000 2803200 
+userspace ondemand walt conservative powersave performance schedutil 
+
+2803200
+qcom-cpufreq-hw
+walt
+2803200
+1766400
+<unsupported>
+
+CPU 6:
+300000 806400 1056000 1344000 1766400 2208000 2400000 2592000 2803200 
+userspace ondemand walt conservative powersave performance schedutil 
+
+2803200
+qcom-cpufreq-hw
+walt
+2803200
+1766400
+<unsupported>
+
+CPU 7:
+300000 806400 1056000 1344000 1766400 2208000 2400000 2592000 2803200 
+userspace ondemand walt conservative powersave performance schedutil 
+
+2803200
+qcom-cpufreq-hw
+walt
+2803200
+1766400
+<unsupported>
+
+=== WALT Tunables (if present) ===
+CPU 4:
+0
+0
+0
+0
+0
+1344000
+90
+0
+0
+4
+1024
+0
+
+CPU 5:
+0
+0
+0
+0
+0
+1344000
+90
+0
+0
+4
+1024
+0
+
+CPU 6:
+0
+0
+0
+0
+0
+1344000
+90
+0
+0
+4
+1024
+0
+
+CPU 7:
+0
+0
+0
+0
+0
+1344000
+90
+0
+0
+4
+1024
+0
+
+=== Thermal State ===
+pm6125-tz: 37000
+cpu-1-3: 41600
+cpuss-0: 43200
+cpuss-1: 44000
+cpuss-2: 40100
+mdm-0: 34600
+display: 35800
+gpu: 33100
+camera-therm: 7696
+pa_0: 28165
+system_h: 28486
+mapss: 38100
+dcxo_0: 28256
+charger: 26834
+usb_port: 26605
+Battery: 27500
+battery: 27500
+shell_frame: 26888
+shell_front: 26912
+shell_back: 26849
+uscp_channel: 26000
+cdsp-hvx: 33500
+wlan: 32300
+camera: 34600
+video: 35000
+mdm-1: 33100
+cpu-1-0: 35800
+cpu-1-1: 35400
+cpu-1-2: 37000

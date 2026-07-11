@@ -1,0 +1,19 @@
+--- a/src/enforcement/censor.cpp
++++ b/src/enforcement/censor.cpp
+@@ -179,6 +179,16 @@ CensorResult Censor::enforce_zero_tolerance(const std::string& target_id,
+     // Report to Judge — still documented
+     report_to_judge(rec->case_id, now_ms);
+ 
++    // ── CHECK SIT ESCALATION ─────────────────────────
++    if (rec->enforcement_count >= CASE_ESCALATE_AT && !rec->escalated) {
++        printf("[CENSOR] ⚡ Target %s hit %d times — escalating to SIT\n",
++               target_id.c_str(), rec->enforcement_count);
++        escalate_to_sit(target_id, rec->case_id, now_ms);
++        rec->escalated = true;
++        rec->gl_state  = GLState::ESCALATED;
++        return CensorResult::ESCALATED;
++    }
++
+     rec->result = CensorResult::CLEAR;
+     return CensorResult::CLEAR;
+ }

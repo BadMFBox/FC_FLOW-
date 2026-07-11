@@ -1,0 +1,278 @@
+#include "fc_flow/enforcement/censor.hpp"
+#include <cstdio>
+#include <cstring>
+#include <ctime>
+
+namespace mesh {
+
+Censor::Censor(uint8_t sector_id, ERM* erm, TokenFlow* token_flow_ptr,
+               FuelFlow* fuel_flow, GateStats* gate_stats)
+    : sector_id_(sector_id), erm_(erm), token_flow_ptr_(token_flow_ptr),
+      fuel_flow_(fuel_flow), gate_stats_(gate_stats),
+      case_count_(0), case_id_counter_(1000), op_id_counter_(5000),
+      initialized_(false) {}
+
+Censor::~Censor() {
+    shutdown();
+}
+
+bool Censor::init() {
+    if (initialized_) {
+        printf("[CENSOR] Already initialized\n");
+        return true;
+    }
+
+    case_records_.clear();
+    sit_operations_.clear();
+    initialized_ = true;
+
+    printf("[CENSOR] Sector %u initialized\n", sector_id_);
+    return true;
+}
+
+void Censor::shutdown() {
+    if (!initialized_) return;
+
+    printf("[CENSOR] Sector %u shutting down. Total cases: %lu\n",
+           sector_id_, case_count_);
+
+    case_records_.clear();
+    sit_operations_.clear();
+    initialized_ = false;
+}
+
+CensorResult Censor::enforce(uint64_t peu_id, CensorMode mode, const std::string& reason) {
+    if (!initialized_) {
+        printf("[CENSOR] Not initialized\n");
+        return CensorResult::DENIED;
+    }
+
+    CensorRecord* record = find_or_create_case(peu_id);
+    if (!record) {
+        return CensorResult::NO_TARGET;
+    }
+
+    // Check if already terminated
+    if (record->gl_state == GLState::EXECUTED) {
+        printf("[CENSOR] Target PEU %lu already terminated\n", peu_id);
+        return CensorResult::ALREADY_TERMINATED;
+    }
+
+    // Update record
+    record->enforcement_count++;
+    record->last_action_ms = static_cast<uint64_t>(time(nullptr)) * 1000;
+    record->last_mode = mode;
+
+    printf("[CENSOR] Enforcing %u on PEU %lu (count: %lu): %s\n",
+           static_cast<uint8_t>(mode), peu_id, record->enforcement_count, reason.c_str());
+
+    CensorResult result = CensorResult::CLEAR;
+
+    switch (mode) {
+        case CensorMode::ADVISE:
+            printf("[CENSOR] Advisory issued to PEU %lu\n", peu_id);
+            result = CensorResult::CLEAR;
+            break;
+
+        case CensorMode::REPRIMAND:
+            printf("[CENSOR] Reprimand logged for PEU %lu\n", peu_id);
+            result = CensorResult::DENIED;
+            break;
+
+        case CensorMode::SUSPEND:
+            printf("[CENSOR] PEU %lu suspended\n", peu_id);
+            result = CensorResult::DENIED;
+            break;
+
+        case CensorMode::STRIKE:
+            result = strike_target(peu_id);
+            break;
+
+        case CensorMode::STUN:
+            result = stun_target(peu_id, 5000);
+            break;
+
+        case CensorMode::TERMINATE:
+            result = terminate_target(peu_id);
+            break;
+
+        case CensorMode::PURGE:
+            result = purge_target(peu_id);
+            break;
+    }
+
+    report_to_judge(peu_id, mode, result);
+    return result;
+}
+
+CensorResult Censor::enforce_zero_tolerance(uint64_t peu_id, const std::string& reason) {
+    printf("[CENSOR] ZERO TOLERANCE: Terminating PEU %lu - %s\n", peu_id, reason.c_str());
+    return terminate_target(peu_id);
+}
+
+CensorResult Censor::strike_target(uint64_t peu_id) {
+    CensorRecord* record = get_case(peu_id);
+    if (!record) return CensorResult::NO_TARGET;
+
+    printf("[CENSOR] STRIKE issued to PEU %lu\n", peu_id);
+
+    // Escalate to SIT if 3+ strikes
+    if (record->enforcement_count >= 3) {
+        escalate_to_sit(peu_id, "Three strikes rule");
+        return CensorResult::ESCALATED;
+    }
+
+    return CensorResult::DENIED;
+}
+
+CensorResult Censor::stun_target(uint64_t peu_id, uint32_t duration_ms) {
+    printf("[CENSOR] STUN: PEU %lu incapacitated for %u ms\n", peu_id, duration_ms);
+    return CensorResult::DENIED;
+}
+
+CensorResult Censor::terminate_target(uint64_t peu_id) {
+    CensorRecord* record = get_case(peu_id);
+    if (!record) return CensorResult::NO_TARGET;
+
+    if (record->gl_state == GLState::EXECUTED) {
+        return CensorResult::ALREADY_TERMINATED;
+    }
+
+    printf("[CENSOR] TERMINATE: PEU %lu permanently terminated\n", peu_id);
+    record->gl_state = GLState::EXECUTED;
+
+    return CensorResult::DENIED;
+}
+
+CensorResult Censor::purge_target(uint64_t peu_id) {
+    CensorResult term_result = terminate_target(peu_id);
+    if (term_result != CensorResult::DENIED) {
+        return term_result;
+    }
+
+    printf("[CENSOR] PURGE: Wiping all data for PEU %lu\n", peu_id);
+    wipe_target_data(peu_id);
+
+    return CensorResult::DENIED;
+}
+
+bool Censor::wipe_target_data(uint64_t peu_id) {
+    printf("[CENSOR] Data wipe initiated for PEU %lu\n", peu_id);
+    // Placeholder: integrate with data layer
+    return true;
+}
+
+CensorResult Censor::purge(uint8_t sector_id, const std::string& reason) {
+    if (sector_id != sector_id_) {
+        printf("[CENSOR] Sector mismatch: %u != %u\n", sector_id, sector_id_);
+        return CensorResult::DENIED;
+    }
+
+    printf("[CENSOR] SECTOR PURGE initiated for Sector %u: %s\n", sector_id, reason.c_str());
+
+    // Terminate all active cases in sector
+    for (auto& pair : case_records_) {
+        if (pair.second.gl_state != GLState::EXECUTED) {
+            terminate_target(pair.first);
+        }
+    }
+
+    return CensorResult::DENIED;
+}
+
+bool Censor::escalate_to_sit(uint64_t peu_id, const std::string& reason) {
+    CensorRecord* record = get_case(peu_id);
+    if (!record) return false;
+
+    if (record->gl_state == GLState::ESCALATED) {
+        printf("[CENSOR] PEU %lu already escalated\n", peu_id);
+        return true;
+    }
+
+    uint64_t op_id = next_op_id();
+    SITOperation sit_op;
+    sit_op.op_id = op_id;
+    sit_op.trigger_case_id = record->case_id;
+    sit_op.target_peu_id = peu_id;
+    sit_op.timestamp_ms = static_cast<uint64_t>(time(nullptr)) * 1000;
+    sit_op.reason = reason;
+
+    sit_operations_[op_id] = sit_op;
+    record->gl_state = GLState::ESCALATED;
+
+    printf("[CENSOR] SIT escalation for PEU %lu (OP %lu): %s\n",
+           peu_id, op_id, reason.c_str());
+
+    return true;
+}
+
+bool Censor::is_escalated(uint64_t peu_id) const {
+    auto it = case_records_.find(peu_id);
+    if (it == case_records_.end()) return false;
+    return it->second.gl_state == GLState::ESCALATED;
+}
+
+void Censor::report_to_judge(uint64_t peu_id, CensorMode mode, CensorResult result) {
+    printf("[CENSOR] Report to Judge: PEU %lu | Mode %u | Result %u\n",
+           peu_id, static_cast<uint8_t>(mode), static_cast<uint8_t>(result));
+}
+
+CensorRecord* Censor::get_case(uint64_t peu_id) {
+    auto it = case_records_.find(peu_id);
+    return (it != case_records_.end()) ? &it->second : nullptr;
+}
+
+uint32_t Censor::get_enforcement_count(uint64_t peu_id) const {
+    auto it = case_records_.find(peu_id);
+    return (it != case_records_.end()) ? it->second.enforcement_count : 0;
+}
+
+CensorRecord* Censor::find_or_create_case(uint64_t peu_id) {
+    auto it = case_records_.find(peu_id);
+    if (it != case_records_.end()) {
+        return &it->second;
+    }
+
+    CensorRecord new_record;
+    new_record.case_id = next_case_id();
+    new_record.target_peu_id = peu_id;
+    new_record.enforcement_count = 0;
+    new_record.first_action_ms = static_cast<uint64_t>(time(nullptr)) * 1000;
+    new_record.last_action_ms = new_record.first_action_ms;
+    new_record.last_mode = CensorMode::ADVISE;
+    new_record.gl_state = GLState::ACTIVE;
+
+    case_records_[peu_id] = new_record;
+    case_count_++;
+
+    return &case_records_[peu_id];
+}
+
+uint64_t Censor::next_case_id() {
+    return case_id_counter_++;
+}
+
+uint64_t Censor::next_op_id() {
+    return op_id_counter_++;
+}
+
+void Censor::print_case_log() const {
+    printf("\n[CENSOR] Case Log (Sector %u)\n", sector_id_);
+    printf("Total cases: %lu\n", case_count_);
+
+    for (const auto& pair : case_records_) {
+        const CensorRecord& rec = pair.second;
+        printf("  Case %lu | PEU %lu | Count: %lu | State: %u | Last: %u\n",
+               rec.case_id, rec.target_peu_id, rec.enforcement_count,
+               static_cast<uint8_t>(rec.gl_state), static_cast<uint8_t>(rec.last_mode));
+    }
+}
+
+void Censor::print_status() const {
+    printf("\n[CENSOR] Status (Sector %u)\n", sector_id_);
+    printf("Initialized: %s\n", initialized_ ? "Yes" : "No");
+    printf("Active cases: %lu\n", case_count_);
+    printf("SIT operations: %lu\n", sit_operations_.size());
+}
+
+} // namespace mesh

@@ -1,0 +1,6 @@
+CrossBoltTest 2 0.307623
+UndisputedCoinTest 2 0.314587
+FlexTokenTest 2 0.314037
+CensorTest 0 0
+---
+CensorTest

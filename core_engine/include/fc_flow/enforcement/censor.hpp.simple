@@ -1,0 +1,147 @@
+#ifndef FC_FLOW_CENSOR_HPP
+#define FC_FLOW_CENSOR_HPP
+
+#include <cstdint>
+#include <unordered_map>
+#include <string>
+
+namespace mesh {
+
+// Forward declarations
+class ERM;
+class TokenFlow;
+class FuelFlow;
+class GateStats;
+
+// Enforcement modes (escalating severity)
+enum class CensorMode : uint8_t {
+    ADVISE      = 0,  // Warning only
+    REPRIMAND   = 1,  // Logged reprimand
+    SUSPEND     = 2,  // Temporary suspension
+    STRIKE      = 3,  // Formal strike
+    STUN        = 4,  // Temporary incapacitation
+    TERMINATE   = 5,  // Permanent termination
+    PURGE       = 6   // Complete removal + blacklist
+};
+
+// Enforcement result codes
+enum class CensorResult : uint8_t {
+    CLEAR              = 0,  // No action taken
+    DENIED             = 1,  // Action blocked
+    NO_TARGET          = 2,  // Target not found
+    ALREADY_TERMINATED = 3,  // Target already terminated
+    ESCALATED          = 4,  // Escalated to SIT
+    SELF_DEFENSE       = 5,  // Self-defense protocol engaged
+    NO_WARRANT         = 6   // No authorization
+};
+
+// Governance Layer state
+enum class GLState : uint8_t {
+    ACTIVE      = 0,
+    EXECUTED    = 1,
+    RE_ENGAGED  = 2,
+    ESCALATED   = 3
+};
+
+// Case record for enforcement actions
+struct CensorRecord {
+    uint64_t case_id;
+    uint64_t target_peu_id;
+    uint64_t enforcement_count;
+    uint64_t first_action_ms;
+    uint64_t last_action_ms;
+    CensorMode last_mode;
+    GLState gl_state;
+};
+
+// Warrant structure (authorization token)
+struct Warrant {
+    uint64_t warrant_id;
+    uint64_t issuer_id;
+    uint64_t target_id;
+    CensorMode max_mode;
+    uint64_t expiry_ms;
+    bool valid;
+};
+
+// SIT (Special Intervention Team) operation
+struct SITOperation {
+    uint64_t op_id;
+    uint64_t trigger_case_id;
+    uint64_t target_peu_id;
+    uint64_t timestamp_ms;
+    std::string reason;
+};
+
+class Censor {
+public:
+    Censor(uint8_t      sector_id,
+           ERM*         erm,
+           TokenFlow*   token_flow_ptr,
+           FuelFlow*    fuel_flow,
+           GateStats*   gate_stats);
+
+    ~Censor();
+
+    // Initialization
+    bool init();
+    void shutdown();
+
+    // Main enforcement entry point
+    CensorResult enforce(uint64_t peu_id, CensorMode mode, const std::string& reason);
+
+    // Zero-tolerance enforcement (bypasses escalation)
+    CensorResult enforce_zero_tolerance(uint64_t peu_id, const std::string& reason);
+
+    // Specific enforcement actions
+    CensorResult strike_target(uint64_t peu_id);
+    CensorResult stun_target(uint64_t peu_id, uint32_t duration_ms);
+    CensorResult terminate_target(uint64_t peu_id);
+    CensorResult purge_target(uint64_t peu_id);
+
+    // Complete data wipe
+    bool wipe_target_data(uint64_t peu_id);
+
+    // Purge entire sector
+    CensorResult purge(uint8_t sector_id, const std::string& reason);
+
+    // Escalation to SIT
+    bool escalate_to_sit(uint64_t peu_id, const std::string& reason);
+    bool is_escalated(uint64_t peu_id) const;
+
+    // Reporting
+    void report_to_judge(uint64_t peu_id, CensorMode mode, CensorResult result);
+
+    // Case management
+    CensorRecord* get_case(uint64_t peu_id);
+    uint32_t get_enforcement_count(uint64_t peu_id) const;
+
+    // Status
+    void print_case_log() const;
+    void print_status() const;
+
+private:
+    // Internal case management
+    CensorRecord* find_or_create_case(uint64_t peu_id);
+    uint64_t next_case_id();
+    uint64_t next_op_id();
+
+    // Members
+    uint8_t     sector_id_;
+    ERM*        erm_;
+    TokenFlow*  token_flow_ptr_;
+    FuelFlow*   fuel_flow_;
+    GateStats*  gate_stats_;
+
+    std::unordered_map<uint64_t, CensorRecord> case_records_;
+    std::unordered_map<uint64_t, SITOperation> sit_operations_;
+
+    uint64_t case_count_;
+    uint64_t case_id_counter_;
+    uint64_t op_id_counter_;
+    bool     initialized_;
+};
+
+} // namespace mesh
+
+#endif // FC_FLOW_CENSOR_HPP

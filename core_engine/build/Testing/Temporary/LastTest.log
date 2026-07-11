@@ -1,0 +1,396 @@
+Start testing: Jul 10 07:18 UTC
+----------------------------------------------------------
+1/4 Testing: CrossBoltTest
+1/4 Test: CrossBoltTest
+Command: "/root/FC_FLOW/core_engine/build/test_crossbolt"
+Directory: /root/FC_FLOW/core_engine/build
+"CrossBoltTest" start time: Jul 10 07:18 UTC
+Output:
+----------------------------------------------------------
+Running main() from /build/gtest/src/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from CrossBoltTest
+[ RUN      ] CrossBoltTest.FireCrossBolt_Success
+[       OK ] CrossBoltTest.FireCrossBolt_Success (0 ms)
+[ RUN      ] CrossBoltTest.VerifyCrossBolt_Success
+[       OK ] CrossBoltTest.VerifyCrossBolt_Success (0 ms)
+[ RUN      ] CrossBoltTest.VerifyCrossBolt_StaleLock
+[       OK ] CrossBoltTest.VerifyCrossBolt_StaleLock (600 ms)
+[ RUN      ] CrossBoltTest.VerifyCrossBolt_WrongStack
+[       OK ] CrossBoltTest.VerifyCrossBolt_WrongStack (0 ms)
+[ RUN      ] CrossBoltTest.MonitusWitness_BoltFired
+[       OK ] CrossBoltTest.MonitusWitness_BoltFired (0 ms)
+[ RUN      ] CrossBoltTest.TamperLockWipe
+[       OK ] CrossBoltTest.TamperLockWipe (0 ms)
+[----------] 6 tests from CrossBoltTest (600 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (601 ms total)
+[  PASSED  ] 6 tests.
+<end of output>
+Test time =   0.62 sec
+----------------------------------------------------------
+Test Passed.
+"CrossBoltTest" end time: Jul 10 07:18 UTC
+"CrossBoltTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/4 Testing: UndisputedCoinTest
+2/4 Test: UndisputedCoinTest
+Command: "/root/FC_FLOW/core_engine/build/test_undisputed_coin"
+Directory: /root/FC_FLOW/core_engine/build
+"UndisputedCoinTest" start time: Jul 10 07:18 UTC
+Output:
+----------------------------------------------------------
+Running main() from /build/gtest/src/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from UndisputedCoinTest
+[ RUN      ] UndisputedCoinTest.MintUndisputed_Success
+[       OK ] UndisputedCoinTest.MintUndisputed_Success (0 ms)
+[ RUN      ] UndisputedCoinTest.VerifyUndisputed_Success
+[       OK ] UndisputedCoinTest.VerifyUndisputed_Success (0 ms)
+[ RUN      ] UndisputedCoinTest.VerifyUndisputed_StaleCoin
+[       OK ] UndisputedCoinTest.VerifyUndisputed_StaleCoin (601 ms)
+[ RUN      ] UndisputedCoinTest.MintUndisputed_InvalidSector
+[       OK ] UndisputedCoinTest.MintUndisputed_InvalidSector (0 ms)
+[ RUN      ] UndisputedCoinTest.MintUndisputed_InvalidStack
+[       OK ] UndisputedCoinTest.MintUndisputed_InvalidStack (0 ms)
+[ RUN      ] UndisputedCoinTest.CoinWipe
+[       OK ] UndisputedCoinTest.CoinWipe (0 ms)
+[----------] 6 tests from UndisputedCoinTest (601 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (601 ms total)
+[  PASSED  ] 6 tests.
+<end of output>
+Test time =   0.63 sec
+----------------------------------------------------------
+Test Passed.
+"UndisputedCoinTest" end time: Jul 10 07:18 UTC
+"UndisputedCoinTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/4 Testing: FlexTokenTest
+3/4 Test: FlexTokenTest
+Command: "/root/FC_FLOW/core_engine/build/test_flex_token"
+Directory: /root/FC_FLOW/core_engine/build
+"FlexTokenTest" start time: Jul 10 07:18 UTC
+Output:
+----------------------------------------------------------
+Running main() from /build/gtest/src/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from FlexTokenTest
+[ RUN      ] FlexTokenTest.MintFlex_Success
+[       OK ] FlexTokenTest.MintFlex_Success (0 ms)
+[ RUN      ] FlexTokenTest.VerifyFlex_Success
+[       OK ] FlexTokenTest.VerifyFlex_Success (0 ms)
+[ RUN      ] FlexTokenTest.VerifyFlex_StaleToken
+[       OK ] FlexTokenTest.VerifyFlex_StaleToken (601 ms)
+[ RUN      ] FlexTokenTest.MintFlex_InvalidSector
+[       OK ] FlexTokenTest.MintFlex_InvalidSector (0 ms)
+[ RUN      ] FlexTokenTest.MintFlex_InvalidStack
+[       OK ] FlexTokenTest.MintFlex_InvalidStack (0 ms)
+[ RUN      ] FlexTokenTest.FlexTokenWipe
+[       OK ] FlexTokenTest.FlexTokenWipe (0 ms)
+[----------] 6 tests from FlexTokenTest (601 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (602 ms total)
+[  PASSED  ] 6 tests.
+<end of output>
+Test time =   0.63 sec
+----------------------------------------------------------
+Test Passed.
+"FlexTokenTest" end time: Jul 10 07:18 UTC
+"FlexTokenTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/4 Testing: CensorTest
+4/4 Test: CensorTest
+Command: "/root/FC_FLOW/core_engine/build/test_censor"
+Directory: /root/FC_FLOW/core_engine/build
+"CensorTest" start time: Jul 10 07:18 UTC
+Output:
+----------------------------------------------------------
+Running main() from /build/gtest/src/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 10 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 10 tests from CensorTest
+[ RUN      ] CensorTest.Initialization
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+[CENSOR] Sector 1 — Censor shutting down
+[       OK ] CensorTest.Initialization (0 ms)
+[ RUN      ] CensorTest.EnforceRequiresWarrant
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+[CENSOR] Enforce — Target: 1001 — Mode: ADVISE
+[CENSOR] Warrant ✓ — Green Light ✓ — Firing
+[CENSOR] ADVISE issued to Target: 1001
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 1001 | Mode: ADVISE | Enforcement #1
+[CENSOR]   Zero tolerance: NO | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp:33: Failure
+Expected equality of these values:
+  result
+    Which is: 1-byte object <00>
+  CensorResult::NO_WARRANT
+    Which is: 1-byte object <06>
+
+/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp:34: Failure
+Expected equality of these values:
+  censor_->get_case_record_count()
+    Which is: '\x1' (1)
+  0
+No case should be created without warrant
+
+[CENSOR] Sector 1 — Censor shutting down
+[  FAILED  ] CensorTest.EnforceRequiresWarrant (0 ms)
+[ RUN      ] CensorTest.ZeroToleranceNoWarrantNeeded
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+[CENSOR] ⚡ ZERO TOLERANCE — Self Defense
+[CENSOR]   Target: 2001 — No warrant required
+[CENSOR] ⚡ TERMINATE — Target: 2001 — Full termination
+[CENSOR]   Wiping target 2001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 2001 | Mode: TERMINATE | Enforcement #1
+[CENSOR]   Zero tolerance: YES | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+[CENSOR] Sector 1 — Censor shutting down
+[       OK ] CensorTest.ZeroToleranceNoWarrantNeeded (0 ms)
+[ RUN      ] CensorTest.ZeroToleranceValidIncidentsOnly
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+[CENSOR] ⚡ ZERO TOLERANCE — Self Defense
+[CENSOR]   Target: 3001 — No warrant required
+[CENSOR] ⚡ TERMINATE — Target: 3001 — Full termination
+[CENSOR]   Wiping target 3001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 3001 | Mode: TERMINATE | Enforcement #1
+[CENSOR]   Zero tolerance: YES | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+[CENSOR] DENIED — not a zero tolerance incident
+[CENSOR] Sector 1 — Censor shutting down
+[       OK ] CensorTest.ZeroToleranceValidIncidentsOnly (0 ms)
+[ RUN      ] CensorTest.PurgeRequiresSectorZero
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+[CENSOR] DENIED — PURGE is Sector Zero only
+
+[CENSOR] Sector 0 — Sovereign Fuel — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+[CENSOR] ⚡⚡ APEX PURGE — Target: 4001
+
+[CENSOR] Enforce — Target: 4001 — Mode: PURGE
+[CENSOR] Warrant ✓ — Green Light ✓ — Firing
+[CENSOR] ⚡⚡ PURGE — Target: 4001 — Cascade termination
+[CENSOR] ⚡ TERMINATE — Target: 4001 — Full termination
+[CENSOR]   Wiping target 4001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR]   Cascade complete — all sectors notified ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 4001 | Mode: PURGE | Enforcement #1
+[CENSOR]   Zero tolerance: NO | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp:88: Failure
+Expected equality of these values:
+  result2
+    Which is: 1-byte object <00>
+  CensorResult::NO_WARRANT
+    Which is: 1-byte object <06>
+Still needs warrant even in Sector Zero
+
+[CENSOR] Sector 0 — Censor shutting down
+[CENSOR] Sector 1 — Censor shutting down
+[  FAILED  ] CensorTest.PurgeRequiresSectorZero (0 ms)
+[ RUN      ] CensorTest.CaseRecordTracking
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+[CENSOR] ⚡ ZERO TOLERANCE — Self Defense
+[CENSOR]   Target: 5001 — No warrant required
+[CENSOR] ⚡ TERMINATE — Target: 5001 — Full termination
+[CENSOR]   Wiping target 5001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 5001 | Mode: TERMINATE | Enforcement #1
+[CENSOR]   Zero tolerance: YES | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+[CENSOR] Sector 1 — Censor shutting down
+[       OK ] CensorTest.CaseRecordTracking (0 ms)
+[ RUN      ] CensorTest.EscalationThreshold
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+[CENSOR] ⚡ ZERO TOLERANCE — Self Defense
+[CENSOR]   Target: 6001 — No warrant required
+[CENSOR] ⚡ TERMINATE — Target: 6001 — Full termination
+[CENSOR]   Wiping target 6001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 6001 | Mode: TERMINATE | Enforcement #1
+[CENSOR]   Zero tolerance: YES | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+
+[CENSOR] ⚡ ZERO TOLERANCE — Self Defense
+[CENSOR]   Target: 6001 — No warrant required
+[CENSOR] ⚡ TERMINATE — Target: 6001 — Full termination
+[CENSOR]   Wiping target 6001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 6001 | Mode: TERMINATE | Enforcement #2
+[CENSOR]   Zero tolerance: YES | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+
+[CENSOR] ⚡ ZERO TOLERANCE — Self Defense
+[CENSOR]   Target: 6001 — No warrant required
+[CENSOR] ⚡ TERMINATE — Target: 6001 — Full termination
+[CENSOR]   Wiping target 6001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 6001 | Mode: TERMINATE | Enforcement #3
+[CENSOR]   Zero tolerance: YES | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+[CENSOR] ⚡ Target 6001 hit 3 times — escalating to SIT
+[CENSOR] ⚡ SIT ESCALATION — Op #5000
+[CENSOR]   Target: 6001 — Sector 5 SIT Doom Squad
+[CENSOR]   Enforcement count: 3 — Special operation opened
+[CENSOR] Sector 1 — Censor shutting down
+[       OK ] CensorTest.EscalationThreshold (0 ms)
+[ RUN      ] CensorTest.MultipleTargets
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+[CENSOR] DENIED — not a zero tolerance incident
+[CENSOR] DENIED — not a zero tolerance incident
+[CENSOR] DENIED — not a zero tolerance incident
+/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp:133: Failure
+Expected equality of these values:
+  censor_->get_case_record_count()
+    Which is: '\0'
+  3
+
+/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp:134: Failure
+Expected equality of these values:
+  censor_->get_enforcement_count("7001")
+    Which is: '\0'
+  1
+
+/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp:135: Failure
+Expected equality of these values:
+  censor_->get_enforcement_count("7002")
+    Which is: '\0'
+  1
+
+/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp:136: Failure
+Expected equality of these values:
+  censor_->get_enforcement_count("7003")
+    Which is: '\0'
+  1
+
+[CENSOR] Sector 1 — Censor shutting down
+[  FAILED  ] CensorTest.MultipleTargets (0 ms)
+[ RUN      ] CensorTest.PrintStatus
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+╔═══════════════════════════════════════════════════╗
+║             CENSOR — STATUS                       ║
+╠═══════════════════════════════════════════════════╣
+║ Sector: 1 — CypheReignTrigger                      ║
+║ Case Records:   0 │ SIT Operations:   0          ║
+║ Escalate at:   3 enforcements                     ║
+╚═══════════════════════════════════════════════════╝
+
+[CENSOR] Sector 1 — Censor shutting down
+[       OK ] CensorTest.PrintStatus (0 ms)
+[ RUN      ] CensorTest.PrintCaseLog
+
+[CENSOR] Sector 1 — CypheReignTrigger — Censor online
+[CENSOR] Better than SIGKILL
+[CENSOR] SIT escalation at 3 enforcements
+
+[CENSOR] ⚡ ZERO TOLERANCE — Self Defense
+[CENSOR]   Target: 8001 — No warrant required
+[CENSOR] ⚡ TERMINATE — Target: 8001 — Full termination
+[CENSOR]   Wiping target 8001 data
+[CENSOR]   Tokens burned ✓
+[CENSOR]   Fuel killed  ✓
+[CENSOR]   Data wiped   ✓
+[CENSOR] → Judge receipt — Case #3000
+[CENSOR]   Target: 8001 | Mode: TERMINATE | Enforcement #1
+[CENSOR]   Zero tolerance: YES | Escalated: NO
+[CENSOR]   GL State: EXECUTED
+
+╔═══════════════════════════════════════════════════╗
+║              CENSOR — CASE LOG                    ║
+╠═══════════════════════════════════════════════════╣
+║ Case #3000  Target: 8001                 Hits: 1 Mode: TERMINATE║
+║   GL: EXECUTED   ZT: YES ESC: NO  Judge: YES  ║
+╚═══════════════════════════════════════════════════╝
+
+[CENSOR] Sector 1 — Censor shutting down
+[       OK ] CensorTest.PrintCaseLog (0 ms)
+[----------] 10 tests from CensorTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 7 tests.
+[  FAILED  ] 3 tests, listed below:
+[  FAILED  ] CensorTest.EnforceRequiresWarrant
+[  FAILED  ] CensorTest.PurgeRequiresSectorZero
+[  FAILED  ] CensorTest.MultipleTargets
+
+ 3 FAILED TESTS
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Failed.
+"CensorTest" end time: Jul 10 07:18 UTC
+"CensorTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jul 10 07:18 UTC

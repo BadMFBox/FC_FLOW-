@@ -1,0 +1,2 @@
+/usr/sbin/ar qc libfc_flow_core.a CMakeFiles/fc_flow_core.dir/src/crypto/crossbolt.cpp.o CMakeFiles/fc_flow_core.dir/src/enforcement/monitus.cpp.o CMakeFiles/fc_flow_core.dir/src/enforcement/censor.cpp.o CMakeFiles/fc_flow_core.dir/src/coin/undisputed_coin.cpp.o CMakeFiles/fc_flow_core.dir/src/coin/flex_token.cpp.o
+/usr/sbin/ranlib libfc_flow_core.a

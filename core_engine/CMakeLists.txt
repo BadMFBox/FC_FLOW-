@@ -1,0 +1,93 @@
+cmake_minimum_required(VERSION 3.20)
+project(fc_flow_core VERSION 1.0.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SODIUM REQUIRED libsodium)
+
+# Use system-installed GTest (no cloud dependencies)
+find_package(GTest REQUIRED)
+
+enable_testing()
+
+# Core library - LOCKED SECTIONS + CENSOR
+add_library(fc_flow_core STATIC
+    src/crypto/crossbolt.cpp
+    src/enforcement/monitus.cpp
+    src/enforcement/censor.cpp
+    src/coin/undisputed_coin.cpp
+    src/coin/flex_token.cpp
+)
+
+target_include_directories(fc_flow_core PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${SODIUM_INCLUDE_DIRS}
+)
+
+target_link_libraries(fc_flow_core PUBLIC
+    ${SODIUM_LIBRARIES}
+)
+
+target_compile_options(fc_flow_core PRIVATE
+    -Wall -Wextra -Wpedantic
+    ${SODIUM_CFLAGS_OTHER}
+)
+
+# Test: CrossBolt
+add_executable(test_crossbolt
+    tests/cpp/test_crossbolt.cpp
+)
+
+target_link_libraries(test_crossbolt
+    fc_flow_core
+    GTest::gtest
+    GTest::gtest_main
+    sodium
+)
+
+add_test(NAME CrossBoltTest COMMAND test_crossbolt)
+
+# Test: Undisputed Coin
+add_executable(test_undisputed_coin
+    tests/cpp/test_undisputed_coin.cpp
+)
+
+target_link_libraries(test_undisputed_coin
+    fc_flow_core
+    GTest::gtest
+    GTest::gtest_main
+    sodium
+)
+
+add_test(NAME UndisputedCoinTest COMMAND test_undisputed_coin)
+
+# Test: FlexToken
+add_executable(test_flex_token
+    tests/cpp/test_flex_token.cpp
+)
+
+target_link_libraries(test_flex_token
+    fc_flow_core
+    GTest::gtest
+    GTest::gtest_main
+    sodium
+)
+
+add_test(NAME FlexTokenTest COMMAND test_flex_token)
+
+# Test: Censor (NEW)
+add_executable(test_censor
+    tests/cpp/test_censor.cpp
+)
+
+target_link_libraries(test_censor
+    fc_flow_core
+    GTest::gtest
+    GTest::gtest_main
+    sodium
+)
+
+add_test(NAME CensorTest COMMAND test_censor)

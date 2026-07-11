@@ -1,0 +1,56 @@
+[
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++  -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -Wall -Wextra -Wpedantic -o CMakeFiles/fc_flow_core.dir/src/crypto/crossbolt.cpp.o -c /root/FC_FLOW/core_engine/src/crypto/crossbolt.cpp",
+  "file": "/root/FC_FLOW/core_engine/src/crypto/crossbolt.cpp",
+  "output": "CMakeFiles/fc_flow_core.dir/src/crypto/crossbolt.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++  -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -Wall -Wextra -Wpedantic -o CMakeFiles/fc_flow_core.dir/src/enforcement/monitus.cpp.o -c /root/FC_FLOW/core_engine/src/enforcement/monitus.cpp",
+  "file": "/root/FC_FLOW/core_engine/src/enforcement/monitus.cpp",
+  "output": "CMakeFiles/fc_flow_core.dir/src/enforcement/monitus.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++  -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -Wall -Wextra -Wpedantic -o CMakeFiles/fc_flow_core.dir/src/enforcement/censor.cpp.o -c /root/FC_FLOW/core_engine/src/enforcement/censor.cpp",
+  "file": "/root/FC_FLOW/core_engine/src/enforcement/censor.cpp",
+  "output": "CMakeFiles/fc_flow_core.dir/src/enforcement/censor.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++  -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -Wall -Wextra -Wpedantic -o CMakeFiles/fc_flow_core.dir/src/coin/undisputed_coin.cpp.o -c /root/FC_FLOW/core_engine/src/coin/undisputed_coin.cpp",
+  "file": "/root/FC_FLOW/core_engine/src/coin/undisputed_coin.cpp",
+  "output": "CMakeFiles/fc_flow_core.dir/src/coin/undisputed_coin.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++  -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -Wall -Wextra -Wpedantic -o CMakeFiles/fc_flow_core.dir/src/coin/flex_token.cpp.o -c /root/FC_FLOW/core_engine/src/coin/flex_token.cpp",
+  "file": "/root/FC_FLOW/core_engine/src/coin/flex_token.cpp",
+  "output": "CMakeFiles/fc_flow_core.dir/src/coin/flex_token.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++ -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -o CMakeFiles/test_crossbolt.dir/tests/cpp/test_crossbolt.cpp.o -c /root/FC_FLOW/core_engine/tests/cpp/test_crossbolt.cpp",
+  "file": "/root/FC_FLOW/core_engine/tests/cpp/test_crossbolt.cpp",
+  "output": "CMakeFiles/test_crossbolt.dir/tests/cpp/test_crossbolt.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++ -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -o CMakeFiles/test_undisputed_coin.dir/tests/cpp/test_undisputed_coin.cpp.o -c /root/FC_FLOW/core_engine/tests/cpp/test_undisputed_coin.cpp",
+  "file": "/root/FC_FLOW/core_engine/tests/cpp/test_undisputed_coin.cpp",
+  "output": "CMakeFiles/test_undisputed_coin.dir/tests/cpp/test_undisputed_coin.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++ -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -o CMakeFiles/test_flex_token.dir/tests/cpp/test_flex_token.cpp.o -c /root/FC_FLOW/core_engine/tests/cpp/test_flex_token.cpp",
+  "file": "/root/FC_FLOW/core_engine/tests/cpp/test_flex_token.cpp",
+  "output": "CMakeFiles/test_flex_token.dir/tests/cpp/test_flex_token.cpp.o"
+},
+{
+  "directory": "/root/FC_FLOW/core_engine/build",
+  "command": "/usr/sbin/c++ -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -I/root/FC_FLOW/core_engine/include -O3 -DNDEBUG -std=gnu++23 -o CMakeFiles/test_censor.dir/tests/cpp/test_censor.cpp.o -c /root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp",
+  "file": "/root/FC_FLOW/core_engine/tests/cpp/test_censor.cpp",
+  "output": "CMakeFiles/test_censor.dir/tests/cpp/test_censor.cpp.o"
+}
+]
